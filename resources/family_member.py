@@ -6,24 +6,37 @@ from http import HTTPStatus
 
 
 class FamilyMemberResource(Resource):
+    # create family member
     def put(self, household_id):
         # convert dob to datetime object
         dob_converted = date_time_obj = datetime.datetime.strptime(
             request.json['dob'], '%Y-%m-%d')
+
+        if 'annualIncome' in request.json:
+            annualIncome = request.json['annualIncome']
+        else:
+            annualIncome = 0
+        if 'spouseName' in request.json:
+            spouseName = request.json['spouseName']
+        else:
+            spouseName = None
         new_member = FamilyMember(
             name=request.json['name'],
             gender=request.json['gender'],
             marital_status=request.json['maritalStatus'],
-            spouse_name=request.json['spouseName'],
+            spouse_name=spouseName,
             occupation_type=request.json['occupationType'],
-            annual_income=request.json['annualIncome'],
+            annual_income=annualIncome,
             dob=dob_converted,
             household_id=household_id
         )
-        new_member.save()
+        result_status = new_member.save()
+        if result_status is not None:
+            return {"msg": result_status}, HTTPStatus.BAD_REQUEST
+
         return (
             {
-                "msg": "successfully created family member"
+                'msg': 'successfully created family member'
 
             },
             HTTPStatus.CREATED,

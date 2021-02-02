@@ -1,12 +1,12 @@
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.exc import IntegrityError, SQLAlchemyError
 from sqlalchemy.orm import relationship
-from sqlalchemy_serializer import SerializerMixin
+
 
 db = SQLAlchemy()
 
 
-class HouseHold(db.Model, SerializerMixin):
+class HouseHold(db.Model):
     __tablename__ = 'household'
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     type = db.Column(db.Enum('HDB', 'Condominium',
@@ -34,7 +34,7 @@ class HouseHold(db.Model, SerializerMixin):
             db.session.rollback()
 
 
-class FamilyMember(db.Model, SerializerMixin):
+class FamilyMember(db.Model):
     __tablename__ = 'family_member'
     id = db.Column(db.Integer(), primary_key=True, autoincrement=True)
     name = db.Column(db.String(100), nullable=False)
@@ -42,26 +42,26 @@ class FamilyMember(db.Model, SerializerMixin):
 
     # Assumes in this case that a person is either single or married
     marital_status = db.Column(db.Enum('Single', 'Married'), nullable=False)
-    spouse_name = db.Column(db.String(100)) or None
+    spouse_name = db.Column(db.String(100))
     occupation_type = db.Column(
         db.Enum('Unemployed', 'Student', 'Employed'), nullable=False)
-    annual_income = db.Column(db.Numeric(10, 2)) or 0
+    annual_income = db.Column(db.Numeric(10, 2))
     dob = db.Column(db.Date, nullable=False)
     household_id = db.Column(db.Integer(), db.ForeignKey('household.id'))
 
     def save(self):
-        print("saved")
         try:
-            print("inside")
             db.session.add(self)
             db.session.commit()
-            print("completed")
-        except IntegrityError:
+        except IntegrityError as e:
+            error = str(e.__dict__['orig'])
             db.session.rollback()
+            return error
         except SQLAlchemyError as e:
             error = str(e.__dict__['orig'])
-            print(error)
             db.session.rollback()
+            print(error)
+            return error
 
     def update(self):
         return db.session.commit()
