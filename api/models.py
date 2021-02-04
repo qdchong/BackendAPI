@@ -41,7 +41,8 @@ class FamilyMember(db.Model):
     gender = db.Column(db.Enum('Male', 'Female'), nullable=False)
 
     # Assumes in this case that a person is either single or married
-    marital_status = db.Column(db.Enum('Single', 'Married'), nullable=False)
+    marital_status = db.Column(
+        db.Enum('Single', 'Married', 'Widowed', 'Divorced'), nullable=False)
     spouse_name = db.Column(db.String(100))
     occupation_type = db.Column(
         db.Enum('Unemployed', 'Student', 'Employed'), nullable=False)
