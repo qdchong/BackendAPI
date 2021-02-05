@@ -56,6 +56,47 @@ Create a household.
 
   - **Code:** 201 <br />
     **Content:** `{ "msg" : "successfully created household" }`
-    **Sample Call:**
+
+- **Sample Call:**
 
 `curl -X POST -d "{\"housingType\":\"HDB\"}" localhost:5000/api/v1/households --header "Content-Type:application/json"`
+
+### **Delete Household**
+
+Delete a household.
+
+- **URL**
+  /api/v1/households/:id
+- **Method:**
+  `DELETE`
+- **URL Params**
+
+  **Required:**
+  `id=[integer]`
+
+- **Success Response:**
+
+  - **Code:** 200 <br />
+    **Content:** `{ "msg" : "successfully deleted household" }`
+
+- **Sample Call:**
+
+`curl -X DELETE localhost:5000/api/v1/households/1`
+
+### **List All Household**
+
+List all households.
+
+- **URL**
+  /api/v1/households/
+- **Method:**
+  `GET`
+
+- **Success Response:**
+
+  - **Code:** 200 <br />
+    **Content:** `{ "data" : [ { "HouseholdId": 1, "HouseholdType": "HDB", "FamilyMembers": [ { "Name": "John", "Gender": "Male", "MaritalStatus": "Married", "Spouse": "Alice", "OccupationType": "Employed", "AnnualIncome": "200000.00", "DOB": "1967-10-14" },] } ]}`
+
+- **Sample Call:**
+
+`curl -X DELETE localhost:5000/api/v1/households/1`

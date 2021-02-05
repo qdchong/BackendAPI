@@ -117,4 +117,4 @@ class HouseHoldResource(Resource):
 
         household.delete()
 
-        return {"msg": "Household has been deleted"}, HTTPStatus.OK
+        return {"msg": "successfully deleted household"}, HTTPStatus.OK

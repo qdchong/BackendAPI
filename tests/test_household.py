@@ -58,7 +58,7 @@ class HouseholdTestCase(TestCase):
             '/api/v1/households/1'
         )
         result = res.json
-        self.assertEqual(result['msg'], 'Household has been deleted')
+        self.assertEqual(result['msg'], 'successfully deleted household')
         self.assertEqual(res.status_code, 200)
 
     def test_family_members(self):
