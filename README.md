@@ -50,7 +50,7 @@ Create a household.
 - **Data Params**
 
   **Required:**
-  "housingType": <householdType>
+  `"housingType": "HDB/Condominium/Landed"`
 
 - **Success Response:**
 
@@ -99,4 +99,60 @@ List all households.
 
 - **Sample Call:**
 
-`curl -X DELETE localhost:5000/api/v1/households/1`
+`curl -X GET localhost:5000/api/v1/households`
+
+### **Show Household**
+
+Get details of a household.
+
+- **URL**
+  /api/v1/households/:id
+- **Method:**
+  `GET`
+- **URL Params**
+
+  **Required:**
+  `id=[integer]`
+
+- **Success Response:**
+
+  - **Code:** 200 <br />
+    **Content:** `{ "data" : [ { "HouseholdId": 1, "HouseholdType": "HDB", "FamilyMembers": [ { "Name": "John", "Gender": "Male", "MaritalStatus": "Married", "Spouse": "Alice", "OccupationType": "Employed", "AnnualIncome": "200000.00", "DOB": "1967-10-14" },] } ]}`
+
+- **Sample Call:**
+
+`curl -X GET localhost:5000/api/v1/households/1`
+
+### **Create Family Member**
+
+Create a family member.
+
+- **URL**
+  /api/v1/households/:id/family_members
+- **Method:**
+  `PUT`
+- **URL Params**
+
+  **Required:**
+  `id=[integer]`
+
+- **DATA Params**
+
+  **Required:**
+  `"name": <name>`,
+  `"gender": <gender>`,
+  `"maritalStatus": "Single/Married/Widowed/Divorced"`,
+  `"occupationType": "Unemployed/Student/Employed"`,
+  `"dob": <dob>`
+  **Optional**
+  `"spouseName: <name>"`,
+  `"annualIncome: <income = int>"`
+
+- **Success Response:**
+
+  - **Code:** 201 <br />
+    **Content:** `{ "msg" : "successfully created family member" }`
+
+- **Sample Call:**
+
+`curl -X PUT -d "{\"name\":\"Minnie\",\"gender\":\"Female\",\"maritalStatus\":\"Married\",\"spouseName\":\"Mickey\",\"annualIncome\" : 40000, \"occupationType\" : \"Employed\",\"dob\":\"1987-07-15\"}" http://localhost:5000/api/v1/households/6/family_members --header "Content-Type:application/json"`

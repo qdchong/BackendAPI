@@ -15,7 +15,7 @@ class FamilyMemberResource(Resource):
         # check if household exist
         household = HouseHold.get_by_id(household_id)
         if household is None:
-            return {"msg": "Household not found. Please create a new household"}, HTTPStatus.NOT_FOUND
+            return {"msg": "No household found. Please create a new household"}, HTTPStatus.NOT_FOUND
 
         # convert dob to datetime object
         dob_converted = date_time_obj = datetime.datetime.strptime(
@@ -59,14 +59,14 @@ class FamilyMemberResource(Resource):
         # check if household exist
         household = HouseHold.get_by_id(household_id)
         if household is None:
-            return {"msg": "Household not found"}, HTTPStatus.NOT_FOUND
+            return {"msg": "no household found"}, HTTPStatus.NOT_FOUND
 
         member_name = request.json['name'].title()
 
         family_member = FamilyMember.get_by_name(member_name)
 
         if family_member is None:
-            return {"msg": "Family Member not found"}, HTTPStatus.NOT_FOUND
+            return {"msg": "no family member found"}, HTTPStatus.NOT_FOUND
 
         family_member.delete()
 

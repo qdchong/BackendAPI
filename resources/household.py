@@ -43,7 +43,7 @@ class HouseHoldListResource(Resource):
                 }
                 data.append(household_details_dict)
             return {"data": data}, HTTPStatus.OK
-        return {"msg": "no households found"}, HTTPStatus.BAD_REQUEST
+        return {"msg": "no household found"}, HTTPStatus.NOT_FOUND
 
     def post(self):
         """Create a Household
@@ -103,6 +103,7 @@ class HouseHoldResource(Resource):
                 },
                 HTTPStatus.OK,
             )
+        return {"msg": "no household found"}, HTTPStatus.NOT_FOUND
 
     def delete(self, household_id):
         """
@@ -113,7 +114,7 @@ class HouseHoldResource(Resource):
 
         # check if household exist
         if household is None:
-            return {"msg": "Household not found"}, HTTPStatus.NOT_FOUND
+            return {"msg": "no household found"}, HTTPStatus.NOT_FOUND
 
         household.delete()
 
