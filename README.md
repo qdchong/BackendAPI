@@ -44,28 +44,18 @@
 Create a household.
 
 - **URL**
-
   /api/v1/households
-
 - **Method:**
-
   `POST`
-
-- **URL Params**
-
-  None
-
 - **Data Params**
 
   **Required:**
-
   "housingType": <householdType>
 
 - **Success Response:**
 
   - **Code:** 201 <br />
     **Content:** `{ "msg" : "successfully created household" }`
+    **Sample Call:**
 
-**Sample Call:**
-
-`curl -X POST -d "{\"housingType\":\"Condo\"}" localhost:5000/api/v1/households --header "Content-Type:application/json"`
+`curl -X POST -d "{\"housingType\":\"HDB\"}" localhost:5000/api/v1/households --header "Content-Type:application/json"`
