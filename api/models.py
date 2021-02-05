@@ -83,4 +83,4 @@ class FamilyMember(db.Model):
 
     @classmethod
     def get_by_name(cls, name):
-        return cls.query.filter_by(name=name.lower()).first()
+        return cls.query.filter_by(name=name).first()

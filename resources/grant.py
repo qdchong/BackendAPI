@@ -300,7 +300,7 @@ class YOLOGSTGrantResource(Resource):
         family_members_list = []
         household_details_dict = []
         income_limit_param = args['income_limit']
-        household_type_param = args['householdtype']
+        household_type_param = args['household_type']
 
         # query households based on household type param
         sub_q = HouseHold.query.with_entities(HouseHold.id).filter(

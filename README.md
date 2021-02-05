@@ -156,3 +156,149 @@ Create a family member.
 - **Sample Call:**
 
 `curl -X PUT -d "{\"name\":\"Minnie\",\"gender\":\"Female\",\"maritalStatus\":\"Married\",\"spouseName\":\"Mickey\",\"annualIncome\" : 40000, \"occupationType\" : \"Employed\",\"dob\":\"1987-07-15\"}" http://localhost:5000/api/v1/households/6/family_members --header "Content-Type:application/json"`
+
+### **Delete Family Member**
+
+Delete a family member.
+
+- **URL**
+  /api/v1/households/:id/family_members
+- **Method:**
+  `DELETE`
+
+- **DATA Params**
+
+  **Required:**
+  `"name": <name>`,
+
+- **Success Response:**
+
+  - **Code:** 201 <br />
+    **Content:** `{ "msg" : "successfully deleted family member" }`
+
+- **Sample Call:**
+
+`curl -X DELETE -d "{\"name\":\"mickey\"}" http://localhost:5000/api/v1/households/1/family_members --header "Content-Type:application/json"`
+
+## Grants API Endpoints
+
+### **Student Encouragement Bonus**
+
+List household and qualifying family members eligible for grant
+
+- **URL**
+  /api/v1/households/grants/student_encouragement_bonus
+- **Method:**
+  `GET`
+
+- **Query Params**
+
+  **Required:**
+  `income_limit=[int]`
+  `age_limit=[int]`
+
+- **Success Response:**
+
+  - **Code:** 201 <br />
+    **Content:** `{ "data" : [ { "HouseholdId": 1, "HouseholdType": "HDB", "FamilyMembers": [ { "Name": "John", "Gender": "Male", "MaritalStatus": "Single", "OccupationType": "Unemployed", "AnnualIncome": "0", "DOB": "2008-10-14" },] } ]}`
+
+- **Sample Call:**
+
+`curl -X GET "http://localhost:5000/api/v1/households/grants/student_encouragement_bonus?income_limit=150000&age_limit=16"`
+
+### **Family Togetherness Bonus**
+
+List household and qualifying family members eligible for grant
+
+- **URL**
+  /api/v1/households/grants/family_together_scheme
+- **Method:**
+  `GET`
+
+- **Query Params**
+
+  **Required:**
+  `has_husband_wife=[bool]`
+  `age_limit=[int]`
+
+- **Success Response:**
+
+  - **Code:** 201 <br />
+    **Content:** `{ "data" : [ { "HouseholdId": 1, "HouseholdType": "HDB", "FamilyMembers": [ { "Name": "John", "Gender": "Male", "MaritalStatus": "Married", "Spouse": "Alice", "OccupationType": "Employed", "AnnualIncome": "200000.00", "DOB": "1967-10-14" }, { "Name": "Alice", "Gender": "Female", "MaritalStatus": "Married", "Spouse": "John", "OccupationType": "Unemployed", "AnnualIncome": "0.00", "DOB": "1987-10-11" }, { "Name": "Sherry", "Gender": "Female", "MaritalStatus": "Single", "OccupationType": "Student", "AnnualIncome": "0.00", "DOB": "2003-10-11" }] } ]}`
+
+- **Sample Call:**
+
+`curl -X GET "http://localhost:5000/api/v1/households/grants/family_together_scheme?has_husband_wife=true&age_limit=18"`
+
+### **Elder Bonus**
+
+List household and qualifying family members eligible for grant
+
+- **URL**
+  /api/v1/households/grants/elder_bonus
+- **Method:**
+  `GET`
+
+- **Query Params**
+
+  **Required:**
+  `household_type="HDB/Landed/Condominium"`
+  `age_limit=[int]`
+
+- **Success Response:**
+
+  - **Code:** 201 <br />
+    **Content:** `{ "data" : [ { "HouseholdId": 1, "HouseholdType": "HDB", "FamilyMembers": [ { "Name": "John", "Gender": "Male", "MaritalStatus": "Single", "OccupationType": "Unemployed", "AnnualIncome": "0", "DOB": "1950-10-14" },] } ]}`
+
+- **Sample Call:**
+
+`curl -X GET "http://localhost:5000/api/v1/households/grants/elder_bonus?household_type=HDB&age_limit=50`
+
+### **Baby Sunshine Grant**
+
+List household and qualifying family members eligible for grant
+
+- **URL**
+  /api/v1/households/grants/baby_sunshine_grant
+- **Method:**
+  `GET`
+
+- **Query Params**
+
+  **Required:**
+  `age_limit=[int]`
+
+- **Success Response:**
+
+  - **Code:** 201 <br />
+    **Content:** `{ "data" : [ { "HouseholdId": 1, "HouseholdType": "HDB", "FamilyMembers": [ { "Name": "John", "Gender": "Male", "MaritalStatus": "Single", "OccupationType": "Unemployed", "AnnualIncome": "0", "DOB": "2020-10-14" },] } ]}`
+
+- **Sample Call:**
+
+`curl -X GET "http://localhost:5000/api/v1/households/grants/baby_sunshine_grant?age_limit=5"`
+
+### **YOLO GST Grant**
+
+List household and qualifying family members eligible for grant
+-- income less than $100,000
+-- HDB
+
+- **URL**
+  /api/v1/households/grants/yolo_gst_grant
+- **Method:**
+  `GET`
+
+- **Query Params**
+
+  **Required:**
+  `income_limit=[int]`
+  `household_type="HDB/Landed/Condominium"`
+
+- **Success Response:**
+
+  - **Code:** 201 <br />
+    **Content:** `{ "data" : [ { "HouseholdId": 1, "HouseholdType": "HDB", "FamilyMembers": [ { "Name": "John", "Gender": "Male", "MaritalStatus": "Single", "OccupationType": "Unemployed", "AnnualIncome": "0", "DOB": "1950-10-14" },] } ]}`
+
+- **Sample Call:**
+
+`curl -X GET "http://localhost:5000/api/v1/households/grants/yolo_gst_grant?income_limit=100000&household_type=HDB"`

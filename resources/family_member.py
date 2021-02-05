@@ -65,6 +65,8 @@ class FamilyMemberResource(Resource):
 
         family_member = FamilyMember.get_by_name(member_name)
 
+        print(family_member)
+
         if family_member is None:
             return {"msg": "no family member found"}, HTTPStatus.NOT_FOUND
 
