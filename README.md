@@ -194,7 +194,7 @@ List household and qualifying family members eligible for grant
 - **Query Params**
 
   **Required:**
-  `income_limit=[int]`
+  `income_limit=[int]`,
   `age_limit=[int]`
 
 - **Success Response:**
@@ -218,7 +218,7 @@ List household and qualifying family members eligible for grant
 - **Query Params**
 
   **Required:**
-  `has_husband_wife=[bool]`
+  `has_husband_wife=[bool]`,
   `age_limit=[int]`
 
 - **Success Response:**
@@ -242,7 +242,7 @@ List household and qualifying family members eligible for grant
 - **Query Params**
 
   **Required:**
-  `household_type="HDB/Landed/Condominium"`
+  `household_type="HDB/Landed/Condominium"`,
   `age_limit=[int]`
 
 - **Success Response:**
@@ -292,7 +292,7 @@ List household and qualifying family members eligible for grant
 - **Query Params**
 
   **Required:**
-  `income_limit=[int]`
+  `income_limit=[int]`,
   `household_type="HDB/Landed/Condominium"`
 
 - **Success Response:**
