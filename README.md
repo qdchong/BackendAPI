@@ -22,7 +22,7 @@
 - `source env/bin/activate `
 - `pip install -r requirements.txt`
 
-##### Add environment variables, create a new .env in your root folder directory , add the following
+##### Add environment variables: Create a new .env in the root folder directory and add the following
 
 - `FLASK_APP=main.py`
 - `FLASK_DEBUG=1 `
