@@ -18,10 +18,14 @@ class HouseHold(db.Model):
         try:
             db.session.add(self)
             db.session.commit()
-        except IntegrityError:
+        except IntegrityError as e:
+            error = str(e.__dict__['orig'])
             db.session.rollback()
-        except SQLAlchemyError:
+            return error
+        except SQLAlchemyError as e:
             db.session.rollback()
+            error = str(e.__dict__['orig'])
+            return error
 
     def update(self):
         return db.session.commit()
@@ -65,7 +69,6 @@ class FamilyMember(db.Model):
         except SQLAlchemyError as e:
             error = str(e.__dict__['orig'])
             db.session.rollback()
-            print(error)
             return error
 
     def update(self):

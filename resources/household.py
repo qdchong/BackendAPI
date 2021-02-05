@@ -51,7 +51,15 @@ class HouseHoldListResource(Resource):
         new_household = HouseHold(
             type=request.json['housingType']
         )
-        new_household.save()
+        res = new_household.save()
+        if res:
+            return (
+                {
+                    "error": res
+                },
+                HTTPStatus.BAD_REQUEST,
+            )
+
         return (
             {
                 "msg": "successfully created household"

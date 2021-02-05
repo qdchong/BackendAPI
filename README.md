@@ -37,9 +37,9 @@
 
 `python -m unittest`
 
-### REST API Endpoints
+## REST API Endpoints
 
-## **Create Household**
+### **Create Household**
 
 Create a household.
 
@@ -63,5 +63,9 @@ Create a household.
 
 - **Success Response:**
 
-  - **Code:** 200 <br />
+  - **Code:** 201 <br />
     **Content:** `{ "msg" : "successfully created household" }`
+
+**Sample Call:**
+
+`curl -X POST -d "{\"housingType\":\"Condo\"}" localhost:5000/api/v1/households --header "Content-Type:application/json"`
