@@ -280,8 +280,9 @@ List household and qualifying family members eligible for grant
 ### **YOLO GST Grant**
 
 List household and qualifying family members eligible for grant
--- income less than $100,000
--- HDB
+
+- income less than $100,000
+- HDB
 
 - **URL**
   /api/v1/households/grants/yolo_gst_grant
