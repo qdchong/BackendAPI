@@ -6,39 +6,17 @@ from http import HTTPStatus
 
 
 class FamilyMemberResource(Resource):
-    # get family members details
-    def get(self, household_id):
-        family_members_list = []
-        query_result = HouseHold.query.get(household_id)
-        if query_result:
-            household_type = query_result.type
-            household_id = query_result.id
-            for detail in query_result.family:
-                family_member_details_dict = {
-                    "Name": detail.name.title(),
-                    "Gender": detail.gender,
-                    "MaritalStatus": detail.marital_status,
-                    **({"Spouse": detail.spouse_name.title()} if detail.spouse_name else {}),
-                    "OccupationType": detail.occupation_type,
-                    "AnnualIncome": str(detail.annual_income),
-                    "DOB": str(detail.dob)
-                }
-                family_members_list.append(family_member_details_dict)
-            data = {
-                "HouseholdId": household_id,
-                "HouseholdType": household_type,
-                "FamilyMembers": family_members_list
-            }
 
-            return (
-                {
-                    'data': data
-                },
-                HTTPStatus.OK,
-            )
-
-    # create family member
     def put(self, household_id):
+        """
+        create a family member
+        """
+
+        # check if household exist
+        household = HouseHold.get_by_id(household_id)
+        if household is None:
+            return {"msg": "Household not found. Please create a new household"}, HTTPStatus.NOT_FOUND
+
         # convert dob to datetime object
         dob_converted = date_time_obj = datetime.datetime.strptime(
             request.json['dob'], '%Y-%m-%d')
@@ -48,11 +26,12 @@ class FamilyMemberResource(Resource):
         else:
             annualIncome = 0
         if 'spouseName' in request.json:
-            spouseName = request.json['spouseName']
+            spouseName = request.json['spouseName'].title()
         else:
             spouseName = None
+
         new_member = FamilyMember(
-            name=request.json['name'],
+            name=request.json['name'].title(),
             gender=request.json['gender'],
             marital_status=request.json['maritalStatus'],
             spouse_name=spouseName,
@@ -72,3 +51,23 @@ class FamilyMemberResource(Resource):
             },
             HTTPStatus.CREATED,
         )
+
+    def delete(self, household_id):
+        """
+        delete a family member
+        """
+        # check if household exist
+        household = HouseHold.get_by_id(household_id)
+        if household is None:
+            return {"msg": "Household not found"}, HTTPStatus.NOT_FOUND
+
+        member_name = request.json['name'].title()
+
+        family_member = FamilyMember.get_by_name(member_name)
+
+        if family_member is None:
+            return {"msg": "Family Member not found"}, HTTPStatus.NOT_FOUND
+
+        family_member.delete()
+
+        return {"msg": "{} from Household {}  has been deleted".format(member_name, household_id)}, HTTPStatus.OK

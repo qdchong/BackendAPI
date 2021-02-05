@@ -33,6 +33,10 @@ class HouseHold(db.Model):
         except SQLAlchemyError:
             db.session.rollback()
 
+    @classmethod
+    def get_by_id(cls, id):
+        return cls.query.filter_by(id=id).first()
+
 
 class FamilyMember(db.Model):
     __tablename__ = 'family_member'
@@ -73,3 +77,7 @@ class FamilyMember(db.Model):
             db.session.commit()
         except SQLAlchemyError:
             db.session.rollback()
+
+    @classmethod
+    def get_by_name(cls, name):
+        return cls.query.filter_by(name=name.lower()).first()
