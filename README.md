@@ -36,3 +36,32 @@
 ##### Run tests locally
 
 `python -m unittest`
+
+### REST API Endpoints
+
+## **Create Household**
+
+Create a household.
+
+- **URL**
+
+  /api/v1/households
+
+- **Method:**
+
+  `POST`
+
+- **URL Params**
+
+  None
+
+- **Data Params**
+
+  **Required:**
+
+  "housingType": <householdType>
+
+- **Success Response:**
+
+  - **Code:** 200 <br />
+    **Content:** `{ "msg" : "successfully created household" }`
